@@ -1,4 +1,4 @@
-<h1>Namaskar</h1>
+<h1>Namaskar, User</h1>
 <?php
             // PHP code starts here
             $user_name = "Demo User Welcome"; // A simple variable
