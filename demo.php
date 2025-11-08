@@ -1,3 +1,4 @@
+<h1>Hey </h1>
 <?php
             // PHP code starts here
             $user_name = "Demo User Welcome"; // A simple variable
