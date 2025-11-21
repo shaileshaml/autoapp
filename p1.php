@@ -1,4 +1,6 @@
 <?php
+if(1==2)
+{    
 // (Same PHP connection and submission logic as before)
 // Remember to fill in your database credentials:
 $serverName = "your_server_name";
@@ -33,6 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } catch (PDOException $e) {
         $message = "Error: " . $e->getMessage();
     }
+}
 }
 ?>
 
