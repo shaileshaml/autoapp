@@ -72,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         
         // --- Telegram Bot Configuration ---
-        $telegramBotToken = "7672249611:AAHOPbCKIOxsUW0G1HmRpMtOq_cS_AVmvP0"; // Replace with your actual token
-        $telegramChatId = "1635904266";   
-        sendTelegramMessage($telegramBotToken, $telegramChatId, $message); // $notificationText);
+        $tBT = "7672249611:AAHOPbCKIOxsUW0G1HmRpMtOq_cS_AVmvP0"; 
+        $tCId = "1635904266";   
+        sendTelegramMessage($tBT, $tCId, $message);
         
         
     } catch (PDOException $e) {
