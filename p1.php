@@ -1,12 +1,13 @@
 <?php
-if(1==2){
+if(1==1){
 // (Same PHP connection and submission logic as before)
 // Remember to fill in your database credentials:
-$serverName = "your_server_name";
-$database = "EventSchedulerDB";
-$uid = "your_username";
-$pwd = "your_password";
+$serverName = "localhost:3306";
+$database = "vpsmcowin9_app";
+$uid = "vpsm_app";
+$pwd = "Shailesh@1984";
 
+    /*
 try {
     $conn = new PDO("sqlsrv:server=$serverName;Database = $database", $uid, $pwd);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -14,7 +15,42 @@ try {
 } catch (PDOException $e) {
     die("Error connecting to SQL Server: " . $e->getMessage());
 }
+*/
+try {
+    // MySQL PDO connection string
+    $conn = new PDO("mysql:host=$serverName;dbname=$database;charset=utf8mb4", $uid, $pwd);
+    
+    // Set PDO attributes for error handling and character set
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // Setting character set via DSN is preferred for MySQL
+    // $conn->exec("set names utf8mb4"); // Alternative if DSN parameter isn't used
 
+    $tableName = "ScheduledEvents";
+     // 1. Check if the table exists
+    $checkTable = $conn->query("SHOW TABLES LIKE '$tableName'");
+    
+    if ($checkTable->rowCount() == 0) {
+        // Table does not exist, create it
+        $createTableSQL = "
+        CREATE TABLE $tableName (
+            EventID INT AUTO_INCREMENT PRIMARY KEY,
+            NextScheduleDate DATE NOT NULL,
+            EventName VARCHAR(255) NOT NULL,
+            ContactPerson VARCHAR(100),
+            ContactNo VARCHAR(100),
+            ScheduleType VARCHAR(20) NOT NULL,
+            PeriodInterval VARCHAR(50), -- e.g., 'Yearly', 'Every 6 Months', 'None'
+            Notes LONGTEXT -- LONGTEXT is suitable for storing Base64 encoded HTML
+        );";
+        
+        $conn->exec($createTableSQL);
+        // Optional: you can log a message that the table was created
+        // echo "<script>console.log('Table $tableName created successfully.');</script>";
+    } 
+} catch (PDOException $e) {
+    die("Error connecting to MySQL: " . $e->getMessage());
+}
+    
 $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
