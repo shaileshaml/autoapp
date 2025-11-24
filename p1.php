@@ -69,6 +69,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt = $conn->prepare($tsql);
         $stmt->execute([$nextScheduleDate, $eventName, $contactPerson, $contactNo, $scheduleType, $periodInterval, $notesBase64]);
         $message = "New record created successfully!";
+
+        
+        // --- Telegram Bot Configuration ---
+        $telegramBotToken = "7672249611:AAHOPbCKIOxsUW0G1HmRpMtOq_cS_AVmvP0"; // Replace with your actual token
+        $telegramChatId = "1635904266";   
+        sendTelegramMessage($telegramBotToken, $telegramChatId, $message); // $notificationText);
+        
+        
     } catch (PDOException $e) {
         $message = "Error: " . $e->getMessage();
     }
@@ -76,6 +84,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 // Get today's date in YYYY-MM-DD format for default value
 $todayDate = date('Y-m-d');
+
+// Function to send a message to Telegram
+function sendTelegramMessage($token, $chatId, $messageText) {
+    $website = "https://api.telegram.org/bot" . $token;
+    $params = [
+        'chat_id' => $chatId,
+        'text' => $messageText,
+        'parse_mode' => 'HTML' // Optional: Allows HTML formatting in your message
+    ];
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $website . '/sendMessage');
+    curl_setopt($ch, CURLOPT_HEADER, false);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // May be needed depending on your server
+    $result = curl_exec($ch);
+    curl_close($ch);
+    // Optional: You can add error handling here by checking $result
+}
+
 ?>
 
 <!DOCTYPE html>
