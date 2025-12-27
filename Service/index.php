@@ -3,7 +3,10 @@
 $botToken = "7672249611:AAHOPbCKIOxsUW0G1HmRpMtOq_cS_AVmvP0"; 
           //"7672249611:AAHOPbCKIOxsUWOG1HmRpMtOq_cS_AVmPO";
 $chatId = "1635904266";
-$message = "Hello from PHP via cURL!";
+if (isset($_GET["m"])) 
+          $message = $_GET["m"];
+else
+          $message = "Hello from PHP via cURL!";
 
 $url = "https://api.telegram.org/bot$botToken/sendMessage";
 
