@@ -17,7 +17,21 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, [
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 $response = curl_exec($ch);
+
 curl_close($ch);
 
 echo $response;
+
+$data = json_decode($response, true);
+$messageId = $data['result']['message_id'];
+
+sleep(60);
+
+$deleteUrl = "https://api.telegram.org/bot$botToken/deleteMessage";
+
+file_get_contents($deleteUrl . "?" . http_build_query([
+    'chat_id' => $chatId,
+    'message_id' => $messageId
+]));
+
 ?>
