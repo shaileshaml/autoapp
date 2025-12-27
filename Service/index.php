@@ -28,13 +28,15 @@ echo $response;
 $data = json_decode($response, true);
 $messageId = $data['result']['message_id'];
 
-sleep(20);
+if (!isset($_GET["m"])) 
+{
+          sleep(20);
 
-$deleteUrl = "https://api.telegram.org/bot$botToken/deleteMessage";
+          $deleteUrl = "https://api.telegram.org/bot$botToken/deleteMessage";
 
-file_get_contents($deleteUrl . "?" . http_build_query([
-    'chat_id' => $chatId,
-    'message_id' => $messageId
-]));
-
+          file_get_contents($deleteUrl . "?" . http_build_query([
+              'chat_id' => $chatId,
+              'message_id' => $messageId
+          ]));
+}
 ?>
