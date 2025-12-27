@@ -25,7 +25,7 @@ echo $response;
 $data = json_decode($response, true);
 $messageId = $data['result']['message_id'];
 
-sleep(60);
+sleep(20);
 
 $deleteUrl = "https://api.telegram.org/bot$botToken/deleteMessage";
 
