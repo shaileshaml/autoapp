@@ -1,6 +1,7 @@
 <?php
 
-$botToken = "7672249611:AAHOPbCKIOxsUWOG1HmRpMtOq_cS_AVmPO";
+$botToken = "7672249611:AAHOPbCKIOxsUW0G1HmRpMtOq_cS_AVmvP0"; 
+          //"7672249611:AAHOPbCKIOxsUWOG1HmRpMtOq_cS_AVmPO";
 $chatId = "1635904266";
 $message = "Hello from PHP via cURL!";
 
